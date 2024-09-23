@@ -12,14 +12,14 @@ export const createServer = (config: Options): express.Application => {
   const app: express.Application = express();
   // logging http access
   if (config.logging != "none") {
-    app.use(morgan(config.logging));
+    // app.use(morgan(config.logging));
   }
   // const signal = require('./signaling');
-  app.use(cors({origin: '*'}));
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.json());
+  // app.use(cors({origin: '*'}));
+  // app.use(express.urlencoded({ extended: true }));
+  // app.use(express.json());
   // app.get('/config', (req, res) => res.json({ useWebSocket: config.type == 'websocket', startupMode: config.mode, logging: config.logging }));
-  app.use('/signaling', signaling);
+  // app.use('/signaling', signaling);
   // app.use(express.static(path.join(__dirname, '../client/public')));
   // app.use('/module', express.static(path.join(__dirname, '../client/src')));
   // app.get('/', (req, res) => {
