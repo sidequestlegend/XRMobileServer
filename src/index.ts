@@ -1,18 +1,27 @@
 import * as express from 'express';
-import { Server } from 'http';
+import * as https from 'https';
 import * as handler from "./websockethandler";
 import * as websocket from "ws";
 import Options from './options';
+import * as fs from 'fs';
+
+
+var credentials = {
+  key: fs.readFileSync('/usr/src/ssl/sdq.st.key', 'utf8'), 
+  cert: fs.readFileSync('/usr/src/ssl/sdq.st.cert', 'utf8')
+};
 
 export class RenderStreaming {
   wss: websocket.Server;
   public app: express.Application;
-  public server?: Server;
+  public server?: any;
   public options: Options;
   constructor(options: Options) {
     this.options = options;
     this.app = express();
-    this.server = this.app.listen(this.options.port);
+    this.server = https.createServer(credentials, this.app);
+    this.server.listen(this.options.port);
+    // this.server = this.app.listen(this.options.port);
     this.setupWebsocket();
     console.log(`start as ${this.options.mode} mode`);
   }
@@ -49,7 +58,7 @@ export class RenderStreaming {
 }
 
 new RenderStreaming({
-  port: 8880,
+  port: 8443,
   secure: false,
   keyfile: '',
   certfile: '',
