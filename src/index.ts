@@ -49,7 +49,7 @@ export class RenderStreaming {
 }
 
 new RenderStreaming({
-  port: 8090,
+  port: 8880,
   secure: false,
   keyfile: '',
   certfile: '',
