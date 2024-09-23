@@ -20,7 +20,9 @@ export class RenderStreaming {
     this.options = options;
     this.app = express();
     this.server = https.createServer(credentials, this.app);
-    this.server.listen(this.options.port);
+    this.server.listen(this.options.port, () => {
+      console.log('Web server start. https://mc.sdq.st:' + this.server.address().port + '/');
+    });
     // this.server = this.app.listen(this.options.port);
     this.setupWebsocket();
     console.log(`start as ${this.options.mode} mode`);
